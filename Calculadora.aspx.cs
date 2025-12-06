@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -16,7 +16,6 @@ namespace WeBcalculadora
             lresultado.Text += d;
         }
 
-        // Números
         protected void b1_Click(object sender, EventArgs e) { AgregarDigito("1"); }
         protected void b2_Click(object sender, EventArgs e) { AgregarDigito("2"); }
         protected void b3_Click(object sender, EventArgs e) { AgregarDigito("3"); }
@@ -30,7 +29,6 @@ namespace WeBcalculadora
         protected void b9_Click(object sender, EventArgs e) { AgregarDigito("9"); }
         protected void b0_Click(object sender, EventArgs e) { AgregarDigito("0"); }
 
-        // Operaciones binarias: guardan valor1 y bandera
         protected void bsuma_Click(object sender, EventArgs e)
         {
             PrepararOperacionBinaria(OperacionBinaria.Suma);
@@ -53,7 +51,10 @@ namespace WeBcalculadora
 
         void PrepararOperacionBinaria(OperacionBinaria tipo)
         {
-            if (!double.TryParse(lresultado.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double v1))
+            if (!double.TryParse(lresultado.Text.Replace(',', '.'),
+                                 NumberStyles.Any,
+                                 CultureInfo.InvariantCulture,
+                                 out double v1))
             {
                 lresultado.Text = "Error";
                 return;
@@ -71,7 +72,6 @@ namespace WeBcalculadora
             lresultado.Text = string.Empty;
         }
 
-        // POO: Checkbox
         void checkBox()
         {
             double n1 = double.Parse(tvalor1.Text, CultureInfo.InvariantCulture);
@@ -86,7 +86,6 @@ namespace WeBcalculadora
                 lresultado.Text += $" [CheckBox Resta: {operacion.restar()}]";
         }
 
-        // POO: RadioButton
         void RadioButton()
         {
             double num1 = double.Parse(tvalor1.Text, CultureInfo.InvariantCulture);
@@ -100,7 +99,6 @@ namespace WeBcalculadora
                 lresultado.Text += $" [RadioButton Resta: {ClsRadionButton.restar(num1, num2)}]";
         }
 
-        // POO: DropDownList
         void DropDown()
         {
             double n1 = double.Parse(tvalor1.Text, CultureInfo.InvariantCulture);
@@ -112,7 +110,6 @@ namespace WeBcalculadora
             lresultado.Text += $" [DropDown {Dlista.SelectedValue}: {res}]";
         }
 
-        // POO: ListBox
         void List()
         {
             double n1 = double.Parse(tvalor1.Text, CultureInfo.InvariantCulture);
@@ -126,8 +123,14 @@ namespace WeBcalculadora
 
         protected void bcalcular_Click(object sender, EventArgs e)
         {
-            if (!double.TryParse(tvalor1.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out _) ||
-                !double.TryParse(tvalor2.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+            if (!double.TryParse(tvalor1.Text.Replace(',', '.'),
+                                 NumberStyles.Any,
+                                 CultureInfo.InvariantCulture,
+                                 out _) ||
+                !double.TryParse(tvalor2.Text.Replace(',', '.'),
+                                 NumberStyles.Any,
+                                 CultureInfo.InvariantCulture,
+                                 out _))
             {
                 lresultado.Text = "Error: ingrese números válidos en Numero 1 y Numero 2.";
                 return;
@@ -140,16 +143,19 @@ namespace WeBcalculadora
             List();
         }
 
-        // "=" resuelve según las banderas
         protected void bresultado_Click(object sender, EventArgs e)
         {
             try
             {
                 double resultado = 0;
 
-                if (ClsOperacion.sumar || ClsOperacion.restar || ClsOperacion.multiplicar || ClsOperacion.dividir)
+                if (ClsOperacion.sumar || ClsOperacion.restar ||
+                    ClsOperacion.multiplicar || ClsOperacion.dividir)
                 {
-                    if (!double.TryParse(lresultado.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double v2))
+                    if (!double.TryParse(lresultado.Text.Replace(',', '.'),
+                                         NumberStyles.Any,
+                                         CultureInfo.InvariantCulture,
+                                         out double v2))
                     {
                         lresultado.Text = "Error";
                         return;
@@ -171,7 +177,10 @@ namespace WeBcalculadora
                     return;
                 }
 
-                if (!double.TryParse(lresultado.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double v1))
+                if (!double.TryParse(lresultado.Text.Replace(',', '.'),
+                                     NumberStyles.Any,
+                                     CultureInfo.InvariantCulture,
+                                     out double v1))
                 {
                     lresultado.Text = "Error";
                     return;
@@ -222,7 +231,6 @@ namespace WeBcalculadora
             ClsOperacion.LimpiarBanderas();
         }
 
-        // Botones unarios: solo prenden una bandera
         protected void bpot2_Click(object sender, EventArgs e)
         {
             ClsOperacion.LimpiarBanderas();
